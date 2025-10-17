@@ -161,7 +161,7 @@ export default function MainPage() {
 
           {/* Grid Box */}
           <div className="w-full max-w-xs sm:max-w-md md:max-w-lg lg:max-w-[960px] p-4 sm:p-6">
-            <div className="grid grid-cols-1 sm:grid-cols-2 items-start bg-white/10 shadow-lg rounded-2xl sm:rounded-3xl p-4 sm:p-6 backdrop-blur-[30px] overflow-hidden gap-4 sm:gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 items-start bg-white/10 shadow-lg rounded-2xl sm:rounded-3xl p-4 sm:p-6 backdrop-blur-[30px] overflow-hidden gap-4 sm:gap-6 relative">
               <div className="flex flex-col text-white">
                 <span className="text-xs sm:text-sm font-semibold">25 SR/GUEST</span>
                 <span className="text-xl sm:text-xl md:text-2xl font-bold mt-1 leading-tight">
@@ -171,7 +171,13 @@ export default function MainPage() {
                   Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
                 </p>
               </div>
-              <FaArrowRight className="justify-self-center sm:justify-self-end self-center text-gray-700 text-lg sm:text-xl" />
+
+              {/* Mobile: Arrow bottom right, Desktop: right side centered */}
+              <div className="flex sm:hidden justify-end">
+                <FaArrowRight className="text-gray-700 text-lg" />
+              </div>
+              <FaArrowRight className="hidden sm:flex justify-self-center sm:justify-self-end self-center text-gray-700 text-lg sm:text-xl" />
+
               {/* Left-bottom shine */}
               <div className="absolute bottom-0 left-0 w-20 h-20 sm:w-32 sm:h-32 bg-white/30 rounded-full blur-2xl sm:blur-3xl pointer-events-none"></div>
             </div>
@@ -181,17 +187,31 @@ export default function MainPage() {
         <div className="max-w-7xl mx-auto my-8 sm:my-10 px-4 text-white">
           {/* Heading and Button */}
           <div className="mb-6">
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 leading-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl  mb-3 sm:mb-4 leading-tight text-left">
               Book General Access ticket and <br className="hidden sm:block" /> enjoy the attractions for free
             </h1>
-            <button className="flex font-semibold items-center justify-center gap-4 sm:gap-10 bg-gradient-to-r from-[#AD8749] to-[#DCBB75] text-white mt-4 sm:mt-6 px-4 sm:px-6 py-2 sm:py-3 rounded-xl sm:rounded-2xl shadow-md hover:opacity-90 transition text-sm sm:text-lg w-full sm:w-auto">
+            <button className="flex  items-center justify-center gap-4 sm:gap-10 bg-gradient-to-r from-[#AD8749] to-[#DCBB75] text-white mt-4 sm:mt-6 px-6 sm:px-8 py-4 sm:py-3 rounded-3xl sm:rounded-2xl shadow-md hover:opacity-90 transition text-lg sm:text-lg w-full sm:w-auto min-h-[60px] sm:min-h-0">
               Book General Access Ticket
-              <FaArrowRight className="text-white text-xl sm:text-2xl" />
+              <FaArrowRight className="text-white text-2xl sm:text-2xl " />
             </button>
           </div>
 
+          {/* Cards Grid - Fixed layout */}
+          <div className="max-w-7xl mx-auto my-8 sm:my-10">
+            <div className="flex gap-3 sm:gap-4 md:gap-6 overflow-x-auto sm:overflow-x-auto pb-4 sm:pb-0 px-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+              {cards.map((card, index) => (
+                <div
+                  key={index}
+                  className={`flex-shrink-0 ${index % 2 !== 0 ? "sm:mt-8 md:mt-10" : ""}`}
+                >
+                  <Card {...card} size={index % 2 === 0 ? "large" : "small"} />
+                </div>
+              ))}
+            </div>
+          </div>
+
           {/* Cards Grid */}
-          <div className="max-w-7xl mx-auto my-8 sm:my-10 overflow-hidden">
+          {/* <div className="max-w-7xl mx-auto my-8 sm:my-10 overflow-hidden">
             <div className="flex gap-3 sm:gap-4 md:gap-6 overflow-x-hidden pb-4 px-2">
               {cards.map((card, index) => (
                 <div
@@ -202,7 +222,7 @@ export default function MainPage() {
                 </div>
               ))}
             </div>
-          </div>
+          </div> */}
 
           <section className="max-w-6xl mx-auto p-4 text-center">
             {/* Heading */}
@@ -224,28 +244,30 @@ export default function MainPage() {
             </div>
           </section>
 
-          <section className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 sm:gap-8 p-4 sm:p-6">
+          <section className="max-w-6xl mx-auto flex flex-col md:flex-row items-start justify-between gap-6 sm:gap-8 p-4 sm:p-6">
             {/* Left Section */}
-            <div className="md:w-1/2 text-center md:text-left">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold mb-4 leading-tight">
+            <div className="md:w-1/2 text-left">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold mb-4 leading-tight text-left">
                 Curate your <br />experienceas <br /> you like
               </h2>
-              <GradientButton className="flex items-center justify-center gap-2 sm:gap-3 text-sm sm:text-base px-4 sm:px-6 py-2 sm:py-3 rounded-xl sm:rounded-2xl mx-auto md:mx-0">
+              <GradientButton className="flex items-center justify-start gap-2 sm:gap-3 text-sm sm:text-base px-9 sm:px-4 py-3 sm:py-3 rounded-3xl sm:rounded-2xl ">
                 Book Tickets
                 <FaArrowRight className="text-white text-lg sm:text-xl" />
               </GradientButton>
             </div>
 
             {/* Right Section - Cards Zig-Zag */}
-            <div className="md:w-1/2 flex gap-2 sm:gap-3 md:gap-4 justify-center items-end mt-6 md:mt-0">
-              <div className="scale-75 sm:scale-90">
-                <Card image="/Image/card2.png" title="Resturants" />
-              </div>
-              <div className="scale-90 sm:scale-110 -mt-4 sm:-mt-6">
-                <Card image="/Image/card5.png" title="Experiences" />
-              </div>
-              <div className="scale-75 sm:scale-90">
-                <Card image="/Image/card6.png" title="Events" />
+            <div className="md:w-1/2 w-full overflow-x-auto sm:overflow-x-visible pb-4 scrollbar-hide px-2 smooth-scroll">
+              <div className="flex gap-2 sm:gap-3 md:gap-4 justify-start items-end mt-6 md:mt-0 min-w-max sm:min-w-0">
+                <div className="scale-75 sm:scale-90 flex-shrink-0">
+                  <Card image="/Image/card2.png" title="Resturants" />
+                </div>
+                <div className="scale-90 sm:scale-110 -mt-4 sm:-mt-6 flex-shrink-0">
+                  <Card image="/Image/card5.png" title="Experiences" />
+                </div>
+                <div className="scale-75 sm:scale-90 flex-shrink-0">
+                  <Card image="/Image/card6.png" title="Events" />
+                </div>
               </div>
             </div>
           </section>
@@ -261,7 +283,7 @@ export default function MainPage() {
             </div>
 
             {/* Right Section - Text + Button */}
-            <div className="md:w-1/2 text-center md:text-left flex flex-col items-center md:items-start space-y-3 sm:space-y-4 order-1 md:order-2">
+            <div className="md:w-1/2 text-left flex flex-col items-start space-y-3 sm:space-y-4 order-1 md:order-2">
               <p className="text-xs sm:text-sm tracking-widest">EXPERIENCE THE GROVES</p>
               <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
                 Find Your Place
@@ -270,7 +292,7 @@ export default function MainPage() {
                 Our interactive map will show you the way to the shops and restaurants that you want to see.
               </p>
               <div className="flex items-center gap-3">
-                <GradientButton title="Open the Map" className="px-4 sm:px-6 py-2 sm:py-3 rounded-xl sm:rounded-2xl text-sm sm:text-base">
+                <GradientButton title="Open the Map" className="px-4 sm:px-8 py-4 sm:py-3 rounded-xl sm:rounded-2xl text-sm sm:text-base">
                   <FaArrowRight className="text-white text-lg sm:text-xl" />
                 </GradientButton>
               </div>
@@ -278,7 +300,8 @@ export default function MainPage() {
           </section>
         </div>
 
-        <hr className="my-8 sm:my-12" />
+        <hr className="my-8 sm:my-12  border-white" />
+
         <Footer />
       </div>
     </div>
